@@ -1,15 +1,11 @@
 import pygame
+from CoreMechanics.Core.base_controller import BaseController
 
-from weapon import WeaponController
 
-
-class PlayerController:
+class PlayerController(BaseController):
 
     def __init__(self):
-        self.bullets = []
-        self.movement_speed = 0.1
-        self.last_shot = pygame.time.get_ticks()
-        self.shoot_delay = 500
+        super().__init__()
 
     def player_movement(self, player_pos, screen_pos):
         keys = pygame.key.get_pressed()
@@ -23,8 +19,3 @@ class PlayerController:
                 temp_pos = player_pos.copy()
                 self.shoot(temp_pos)
                 self.last_shot = now
-
-    def shoot(self, pos):
-        new_bullet = WeaponController(pos)
-        self.bullets.append(new_bullet)
-
