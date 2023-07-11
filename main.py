@@ -26,6 +26,10 @@ while running:
 
     pygame.draw.circle(screen, "red", player_pos, 40)
 
+    for bullet in my_instance.bullets:
+        bullet.bullet_move()
+        bullet.draw(pygame.display.get_surface())
+
     my_instance.player_movement(player_pos, screen.get_width())
 
     # RENDER YOUR GAME HERE
