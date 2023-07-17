@@ -2,8 +2,8 @@ from CoreMechanics.Core.base_controller import BaseController
 
 
 class NpcController(BaseController):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, pos, radius):
+        super().__init__(pos, radius)
         self.go_left = True
         self.go_right = False
 
@@ -18,4 +18,5 @@ class NpcController(BaseController):
             if npc_pos.x > screen_pos:
                 self.go_left = True
                 self.go_right = False
+
 

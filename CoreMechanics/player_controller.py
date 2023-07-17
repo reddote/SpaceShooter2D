@@ -4,8 +4,8 @@ from CoreMechanics.Core.base_controller import BaseController
 
 class PlayerController(BaseController):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, pos, radius):
+        super().__init__(pos, radius)
 
     def player_movement(self, player_pos, screen_pos):
         keys = pygame.key.get_pressed()
