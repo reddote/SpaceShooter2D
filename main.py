@@ -11,6 +11,9 @@ clock = pygame.time.Clock()
 running = True
 dt = 0.1
 
+# TODO this npc kill system will be changed
+is_npc_dead = False
+
 player_pos = pygame.Vector2(screen.get_width()/2, 640)
 npc_pos = pygame.Vector2(screen.get_width()/2, 120)
 
@@ -30,15 +33,20 @@ while running:
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("gray")
 
-    pygame.draw.circle(screen, "red", player_pos, player_radius)
-    pygame.draw.circle(screen, "blue", npc_pos, npc_radius)
+    if is_npc_dead is False:
+        npc = pygame.draw.circle(screen, "blue", npc_pos, npc_radius)
+        npc_rect = pygame.Rect(0, 0, npc_radius * 2, npc_radius * 2)
+        npc_rect.center = (npc_pos.x, npc_pos.y)
 
-    npc_rect = pygame.Rect(0, 0, npc_radius * 2, npc_radius * 2)
-    npc_rect.center = (npc_pos.x, npc_pos.y)
+    pygame.draw.circle(screen, "red", player_pos, player_radius)
 
     for bullet in my_instance.bullets:
         bullet.bullet_move()
-        bullet.draw(pygame.display.get_surface(), npc_rect)
+        bullet.draw(pygame.display.get_surface())
+        if is_npc_dead is False and bullet.bullet_rect.colliderect(npc_rect):
+            my_instance.bullets.remove(bullet)
+            is_npc_dead = True
+            print("Collision Detect")
 
     my_instance.player_movement(player_pos, screen.get_width())
     my_npc_instance.npc_movement(npc_pos, screen.get_width())
