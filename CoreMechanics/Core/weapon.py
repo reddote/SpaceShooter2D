@@ -16,5 +16,8 @@ class WeaponController:
         self.bullet_rect = pygame.Rect(0, 0, self.bullet_radius * 2, self.bullet_radius * 2)
         self.bullet_rect.center = (self.pos.x, self.pos.y)
 
-    def bullet_move(self):
-        self.pos.y -= self.speed
+    def bullet_move(self, is_player):
+        if is_player:
+            self.pos.y -= self.speed
+        elif not is_player:
+            self.pos.y += self.speed

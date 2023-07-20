@@ -1,4 +1,6 @@
 # Example file showing a basic pygame "game loop"
+import random
+
 import pygame
 
 from CoreMechanics.player_controller import PlayerController
@@ -61,9 +63,12 @@ while running:
 
         for npc in my_npc_instance:
             npc.draw(screen, "blue")
-            npc.pos = npc.npc_movement(npc.pos, screen.get_width())
+            npc.pos = npc.npc_movement(npc.pos)
+            for npc_bullet in npc.bullets:
+                npc_bullet.bullet_move(False)
+                npc_bullet.draw(pygame.display.get_surface())
             for bullet in my_instance.bullets:
-                bullet.bullet_move()
+                bullet.bullet_move(True)
                 bullet.draw(pygame.display.get_surface())
                 if npc.is_dead is False and bullet.bullet_rect.colliderect(
                         npc.drawable_object_rect):
