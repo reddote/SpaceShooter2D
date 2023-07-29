@@ -24,6 +24,8 @@ MENU = 0
 PLAYING = 1
 state = MENU
 
+score = 0
+
 BLACK = (0, 0, 0)
 
 player_pos = pygame.Vector2(screen.get_width()/2, 640)
@@ -60,7 +62,8 @@ while running:
     elif state == PLAYING:
         my_instance.draw(screen, "red")
         my_instance.player_movement(player_pos, screen.get_width())
-
+        text = font.render("Score : " + str(score), True, BLACK)
+        screen.blit(text, (50 - text.get_width() / 2, HEIGHT-20 - text.get_height() / 2))
         for npc in my_npc_instance:
             npc.draw(screen, "blue")
             npc.pos = npc.npc_movement(npc.pos)
@@ -74,11 +77,12 @@ while running:
                         npc.drawable_object_rect):
                     my_instance.bullets.remove(bullet)
                     npc.is_dead = True
+                    score += 1
                     print("Collision Detect")
 
     # RENDER YOUR GAME HERE
 
-    # flip() the display to put your work on screen
+    # flip() the display to put your work on screenaa
     pygame.display.flip()
 
     clock.tick(60)  # limits FPS to 60
